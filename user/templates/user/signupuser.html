@@ -1,0 +1,52 @@
+{% extends "user/base.html" %}
+
+{% block content %}
+{% load static %}
+<br>
+<br>
+
+<br>
+<div style="position: relative;">
+        <img src="{% static 'user/yes.jpeg' %}" class="d-block w-100" alt="..." style="filter: blur(5px);">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: ; width: 100%;">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-5">
+                    {% if error %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endif %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="name">Username</label>
+                            <input type="text" name="username" class="form-control" id="name" aria-describedby="usernameHelp">
+                            <small id="usernameHelp" class="form-text text-">Your username must be unique. We'll let you know if someone has taken it already.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" class="form-control" id="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone_number">PhoneNumber</label>
+                            <input type="PhoneNumber" name="phone_number" class="form-control" id="phone_number">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password1</label>
+                            <input type="password" name="password" class="form-control" id="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="password2">Confirm Password</label>
+                            <input type="password" name="password2" class="form-control" id="password2">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </form>
+                    <hr>
+                    <div class="text-center">
+                        Do you already have an account? <a href="{% url 'user_management:loginuser' %}">Login here</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+{% endblock %}

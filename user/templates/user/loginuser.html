@@ -1,0 +1,40 @@
+{% extends "user/base.html" %}
+
+{% block content %}
+{% load static %}
+<br>
+<br>
+
+<br>
+<div style="position: relative;">
+        <img src="{% static 'user/yes.jpeg' %}" class="d-block w-100" alt="..." style="filter: blur(5px);">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: ; width: 100%;">
+           <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" class="form-control" id="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="form-control" id="password">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <hr>
+            <div class="text-center">
+                Need an account? <a href="{% url 'user_management:signupuser' %}">Sign Up here</a>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+{% endblock %}
+

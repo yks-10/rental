@@ -1,0 +1,16 @@
+{% extends "user/base.html" %}
+
+{% block content %}
+{% load static %}
+
+    <br>
+    <br>
+    <br>
+    <div style="position: relative;">
+        <img src="{% static 'user/yes.jpeg' %}" class="d-block w-100" alt="..." style="filter: blur(5px);">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 100%;">
+            <h2 style="color: black;">Wedding Decor  <a role="button" class="btn btn-dark btn-lg" href="{% url 'user_management:productlist' %}">AND</a> Wedding Rentals </h2>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+
+
+
+{% extends "user/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+          <div class="col-md-5">
+            {% if user.is_staff %}
+              <h2>Update product</h2>
+            {% else %}
+              <h2>Product Details</h2>
+            {% endif %}
+          </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="product_name">Product Name</label>
+                    <input type="text" name="product_name" class="form-control" id="product_name" value="{{ product.product_name }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Product Price</label>
+                     <input type="text" name="price" class="form-control" id="price" value="{{ product.price }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Product Quantity</label>
+                    <input type="text" name="quantity" class="form-control" id="quantity" value="{{ product.quantity }}" required>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" name="available" class="form-check-input" id="available" {% if product.available %}checked{% endif %}>
+                    <label class="form-check-label" for="available">available</label>
+                </div>
+                {% if user.is_staff %}
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger" onclick="$('#delete').click()">Delete</button>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+     <form style='display: none;' method="POST" action="{% url 'user:deleteproduct' product.id %}">
+            {% csrf_token %}
+            <button id="delete" type="submit">Delete</button>
+     </form>
+{% endblock %}

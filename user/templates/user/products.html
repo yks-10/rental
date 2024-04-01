@@ -1,0 +1,57 @@
+{% extends "user/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+            {% if products %}
+                <h1>{{ products.count }} Total Product{{ products.count|pluralize }}</h1>
+            {% else %}
+                <h1>Current Products</h1>
+            {% endif %}
+            {% if user.is_staff %}
+                <a role="button" class="btn btn-dark btn-lg" href="{% url 'user_management:createproduct' %}">Add</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+            {% if products %}
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Price/Quantity</th>
+                            <th scope="col">Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'user_management:productdetails' product.id %}">
+                                        {{ product.product_name }}
+                                    </a>
+                                </td>
+                                <td>{{ product.price }}</td>
+                                <td>{{ product.quantity|default:"N/A" }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="text-center">
+                    <h2>Looks like you don't have any products! Nice work.</h2>
+                    <br>
+                    <a role="button" class="btn btn-primary" href="{% url 'user_management:createproduct' %}">New Product</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Add this block for displaying messages -->
+    {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endblock %}
